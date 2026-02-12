@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 
 /**
  * FloatingImage Component - Enhanced with depth focus and exit tilt logic
@@ -104,10 +104,21 @@ export function FloatingImage({
     };
   }, [xOffset, driftX, distanceFromCamera, scale, rotationY, opacity]);
 
+  const [loaded, setLoaded] = useState(false);
+  const handleLoad = useCallback(() => setLoaded(true), []);
+
   return (
     <div className="floating-image-container" style={transform}>
       <figure className="floating-image">
-        <img src={image} alt={title} loading="lazy" />
+        <img
+          className={loaded ? "loaded" : "loading"}
+          src={image}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+          fetchPriority={Math.abs(distanceFromCamera) < 800 ? "high" : "low"}
+          onLoad={handleLoad}
+        />
         <figcaption>{title}</figcaption>
       </figure>
     </div>

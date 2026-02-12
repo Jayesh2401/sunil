@@ -25,7 +25,7 @@ export function SpaceScene({
   onNavigateBack,
 }) {
   const { sceneRef, cameraZ, cameraX, rotationY, isAtEnd, maxDepth } =
-    useScroll3D(3000, 2000);
+    useScroll3D(3000, 2000, true);
 
   // === CRITICAL: Large Z-axis spacing for depth perception ===
   // Each card is far apart in depth to create strong forward motion
@@ -92,8 +92,19 @@ export function SpaceScene({
 
   return (
     <section className="space-scene" ref={sceneRef}>
+      {/* Background video (replaces static space.jpg) */}
+      <video
+        className="space-background-video"
+        src="/vid1.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+
       {/* Background starfield effect with parallax depth layers */}
-      <div 
+      <div
         className="starfield-background"
         style={{
           /* Multi-layer parallax: each layer moves at different speed */

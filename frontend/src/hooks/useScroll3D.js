@@ -12,9 +12,9 @@ import { useEffect, useRef, useState } from "react";
  * - isAtEnd: boolean indicating if user has scrolled to the deepest point
  */
 
-export function useScroll3D(maxScrollDistance = 3000, maxDepth = 2000) {
+export function useScroll3D(maxScrollDistance = 3000, maxDepth = 2000, startInside = false) {
   const sceneRef = useRef(null);
-  const [cameraZ, setCameraZ] = useState(0);
+  const [cameraZ, setCameraZ] = useState(startInside ? maxDepth : 0);
   const [cameraX, setCameraX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
   const [isAtEnd, setIsAtEnd] = useState(false);
@@ -50,6 +50,19 @@ export function useScroll3D(maxScrollDistance = 3000, maxDepth = 2000) {
 
     const state = scrollStateRef.current;
     const input = inputStateRef.current;
+
+    // initialize internal state to start inside if requested
+    if (startInside) {
+      state.currentZ = maxDepth;
+      state.targetZ = maxDepth;
+      setCameraZ(maxDepth);
+      setIsAtEnd(true);
+    } else {
+      state.currentZ = 0;
+      state.targetZ = 0;
+      setCameraZ(0);
+      setIsAtEnd(false);
+    }
 
     // ===== SCROLL HANDLER =====
     const handleWheel = (e) => {

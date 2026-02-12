@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 
 /**
  * SpaceCard Component
@@ -53,6 +53,8 @@ export function SpaceCard({
   }, [xOffset, distanceFromCamera, scale, rotationY, lookAtCamera, isVisible, opacity]);
 
   if (!card) return null;
+  const [loaded, setLoaded] = useState(false);
+  const handleLoad = useCallback(() => setLoaded(true), []);
 
   return (
     <div
@@ -64,7 +66,15 @@ export function SpaceCard({
     >
       <article className="space-card">
         <div className="space-card-image">
-          <img src={card.image} alt={card.title} loading="lazy" />
+          <img
+            className={loaded ? "loaded" : "loading"}
+            src={card.image}
+            alt={card.title}
+            loading="lazy"
+            decoding="async"
+            fetchPriority={Math.abs(distanceFromCamera) < 800 ? "high" : "low"}
+            onLoad={handleLoad}
+          />
         </div>
         <div className="space-card-content">
           <h3>{card.title}</h3>
