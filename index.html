@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museum Motion Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="museum" id="museum">
+      <header class="topbar">
+        <div class="brand">
+          <span>Museum of</span>
+          <strong>Digital Influence</strong>
+        </div>
+        <nav class="menu">
+          <button type="button">About</button>
+          <button type="button">Support Project</button>
+        </nav>
+      </header>
+
+      <section class="h-scroll" id="h-scroll" aria-label="Interactive gallery timeline">
+        <div class="sticky-scene">
+          <div class="track" id="track"></div>
+
+          <div class="arc-overlay">
+            <svg class="arc-svg" viewBox="0 0 1000 260" preserveAspectRatio="none">
+              <path id="navArc" d="M 50 210 Q 500 80 950 210" />
+            </svg>
+            <div class="timeline" id="timeline"></div>
+            <p class="scroll-hint">Scroll to navigate</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

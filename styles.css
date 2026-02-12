@@ -1,0 +1,301 @@
+:root {
+  --bg-0: #cfd2d9;
+  --bg-1: #bcc0c8;
+  --ink: #121317;
+  --muted: #525968;
+  --soft: rgba(255, 255, 255, 0.62);
+  --line: rgba(255, 255, 255, 0.72);
+  --active: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  background: radial-gradient(100% 110% at 50% 0%, #e8eaef 0%, var(--bg-0) 50%, var(--bg-1) 100%);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.topbar {
+  position: fixed;
+  inset: 1.2rem 1.6rem auto;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.brand {
+  display: grid;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 8px 22px rgba(37, 44, 65, 0.35);
+}
+
+.brand span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.brand strong {
+  font-size: 1.8rem;
+  font-family: "Syne", sans-serif;
+}
+
+.menu {
+  display: flex;
+  gap: 0.8rem;
+  pointer-events: auto;
+}
+
+.menu button {
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(132, 140, 160, 0.18);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.9rem 1.7rem;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.menu button:hover {
+  background: rgba(255, 255, 255, 0.23);
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.h-scroll {
+  position: relative;
+}
+
+.sticky-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.track {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(2rem, 4.2vw, 5rem);
+  padding: 6rem clamp(1rem, 2vw, 2rem) 12rem;
+  will-change: transform;
+}
+
+.panel {
+  width: clamp(250px, 27vw, 420px);
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  --depth: 0px;
+  --tilt: 0deg;
+  --img-scale: 1.04;
+  --img-x: 0px;
+  transform: translateZ(var(--depth)) rotateY(var(--tilt));
+}
+
+.panel h2 {
+  margin: 0;
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.85rem, 3.1vw, 3.5rem);
+  letter-spacing: 0.01em;
+  text-align: center;
+  font-weight: 700;
+}
+
+.panel .years {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.5rem);
+  letter-spacing: 0.03em;
+}
+
+.portal {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 60vh, 720px);
+  border-radius: clamp(110px, 17vw, 220px) clamp(110px, 17vw, 220px) 10px 10px;
+  border: 5px solid var(--line);
+  overflow: hidden;
+  background: rgba(197, 201, 210, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 35px 60px rgba(42, 47, 63, 0.16);
+  clip-path: polygon(0 100%, 0 21%, 6% 12%, 18% 4%, 50% 0, 82% 4%, 94% 12%, 100% 21%, 100% 100%);
+  transition: transform 250ms ease, clip-path 250ms ease;
+}
+
+.portal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 55%;
+  transform: scale(var(--img-scale)) translateX(var(--img-x));
+  transition: transform 350ms ease, filter 350ms ease;
+}
+
+.portal::before,
+.portal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.portal::before {
+  background: linear-gradient(97deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 32%);
+  mix-blend-mode: screen;
+}
+
+.portal::after {
+  background: radial-gradient(130% 95% at 50% -4%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 42%);
+}
+
+.panel:hover .portal {
+  transform: translateY(-8px) rotateX(2deg);
+  clip-path: polygon(0 100%, 0 18%, 6% 9%, 18% 2%, 50% 0, 82% 2%, 94% 9%, 100% 18%, 100% 100%);
+}
+
+.panel:hover .portal img {
+  filter: saturate(1.08) contrast(1.06);
+}
+
+.arc-overlay {
+  position: absolute;
+  left: -5vw;
+  right: -5vw;
+  bottom: -1px;
+  height: clamp(190px, 29vh, 280px);
+  background:
+    radial-gradient(95% 170% at 50% 100%, rgba(85, 89, 109, 0.45), rgba(149, 153, 169, 0.4) 38%, rgba(211, 215, 226, 0.8) 76%, rgba(230, 233, 240, 0.95) 100%),
+    linear-gradient(180deg, rgba(245, 247, 252, 0.05), rgba(245, 247, 252, 0.38));
+  border-top-left-radius: 48% 92%;
+  border-top-right-radius: 48% 92%;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 -28px 60px rgba(62, 65, 80, 0.14);
+}
+
+.arc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#navArc {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 2;
+  stroke-dasharray: 2 10;
+  stroke-linecap: round;
+}
+
+.timeline {
+  position: absolute;
+  inset: 0;
+}
+
+.dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.45);
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.dot.active {
+  background: var(--active);
+  transform: translate(-50%, -50%) scale(1.36);
+}
+
+.dot-label {
+  position: absolute;
+  width: 132px;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dot-label span {
+  display: block;
+  margin-top: 0.3rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.9rem;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    inset: 1rem;
+  }
+
+  .brand strong {
+    font-size: 1.3rem;
+  }
+
+  .menu button {
+    padding: 0.62rem 1rem;
+    letter-spacing: 0.09em;
+    font-size: 0.66rem;
+  }
+
+  .track {
+    gap: 1.3rem;
+    padding-top: 5.6rem;
+  }
+
+  .panel {
+    width: min(80vw, 330px);
+  }
+
+  .panel h2 {
+    font-size: clamp(1.4rem, 7vw, 2.2rem);
+  }
+
+  .portal {
+    height: clamp(320px, 52vh, 480px);
+  }
+
+  .dot-label {
+    width: 92px;
+    font-size: 0.62rem;
+  }
+
+  .dot-label span {
+    margin-top: 0.2rem;
+  }
+}
