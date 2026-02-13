@@ -1,9 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { exhibits } from "../data/exhibits";
 import { useMuseumMotion } from "../hooks/useMuseumMotion";
 
 export default function Museum() {
+  const navigate = useNavigate();
   const { sectionRef, trackRef, timelineRef, arcRef } =
     useMuseumMotion(exhibits);
+
+  const handleCardClick = (exhibitId) => {
+    if (exhibitId === "blogging") {
+      navigate("/riseofblogging");
+    }
+  };
 
   return (
     <main className="museum">
@@ -26,7 +34,14 @@ export default function Museum() {
         <div className="sticky-scene">
           <div className="track" ref={trackRef}>
             {exhibits.map((item) => (
-              <article key={item.id} className="panel">
+              <article
+                key={item.id}
+                className="panel"
+                onClick={() => handleCardClick(item.id)}
+                style={{
+                  cursor: item.id === "blogging" ? "pointer" : "default"
+                }}
+              >
                 <h2>{item.title}</h2>
                 <p className="years">{item.years}</p>
                 <div className="portal">
