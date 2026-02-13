@@ -261,7 +261,7 @@ export function RiseOfBlogging() {
                 }}
               >
                 {/* Image Card Only */}
-                <div className={`journey-card image-card ${state.isActive ? "active" : ""}`}>
+                <div className={`journey-card image-card ${state.visible ? "visible" : ""} ${state.isActive ? "active" : ""}`}>
                   <div className="card-image-wrapper">
                     <img
                       src={card.image}
@@ -278,7 +278,7 @@ export function RiseOfBlogging() {
 
                 {/* Content Card (separate) */}
                 {imagePosition !== "center" && (
-                  <div className={`journey-card content-card ${contentPosition} ${state.isActive ? "active" : ""}`}>
+                  <div className={`journey-card content-card ${contentPosition} ${state.visible ? "visible" : ""} ${state.isActive ? "active" : ""}`}>
                     <div className="card-content">
                       <div className="card-year">{card.year}</div>
                       <h2 className="card-title">{card.title}</h2>
